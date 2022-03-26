@@ -22,8 +22,8 @@ export default function Register() {
               url: "http://127.0.0.1:8000/users/register/",
               data: {
                 "username": username,
-                "first_name": "",
-                "last_name": "",
+                "first_name": "ali",
+                "last_name": "ali",
                 "email": email,
                 "password": password1,
                 "password2": password2

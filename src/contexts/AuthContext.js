@@ -36,7 +36,7 @@ const AuthContextProvider = (props) => {
           }
       
           fetchData();
-    }, [token])
+    }, [])
     console.log("auth",currentUser)
     
     

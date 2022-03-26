@@ -5,6 +5,17 @@ const Main = () => {
 
      const {currentInfo} = useContext(BlogContext)
 
+    //  function refreshPage() {
+    //     window.location.reload(false);
+    //   }
+
+    //   useEffect(() => {
+    //    refreshPage()
+    //   }, [])
+      
+
+
+
     return (
         <div className='card-container'>
             
