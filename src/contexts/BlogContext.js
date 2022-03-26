@@ -9,24 +9,24 @@ const BlogContextProvider = (props) => {
 
     const [currentInfo,setCurrentInfo] =useState()
     
-    const fetchData = async () =>{
-     try{
-        const res = await axios.get("http://127.0.0.1:8000/blog/list/");
-        setCurrentInfo(res.data);
-        console.log(res.data);
-      }
-      catch(err){
-
-      }
-
-    }
-
+    
      
     useEffect(() => {
-        
+      const fetchData = async () =>{
+        try{
+           const res = await axios.get("http://127.0.0.1:8000/blog/list/");
+           setCurrentInfo(res.data);
+           console.log(res.data);
+         }
+         catch(err){
+   
+         }
+   
+       }
+       fetchData();
     
-        fetchData();
-      }, [fetchData]);
+        
+      }, []);
 
    
 

@@ -10,7 +10,7 @@ import { BiComment } from "react-icons/bi";
 import {FaUserCircle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
-import { useContext } from 'react';
+import { useContext} from 'react';
 
 
 const Cards=({userItems} )=> {
@@ -21,10 +21,17 @@ const Cards=({userItems} )=> {
     content,
     image,
     createdDate,
-    email
+    email,
+    likes_count,
+    comments_count
   }=userItems;
 const navigate = useNavigate()
 const {currentUser} = useContext(AuthContext)
+
+
+
+
+
 const handleClick = ()=>{
   if (!currentUser){
     alert("LOGIN OL")
@@ -48,7 +55,7 @@ const handleClick = ()=>{
       <CardContent style={{background:"#EFEEFE"}}>
           <h3 className='card-title'>{title}</h3>
           
-          <p>{createdDate}</p>
+          <p>{createdDate.slice(0,10)}</p>
         <Typography variant="body2" className='card-content'   color="text.secondary">
           {content}
         </Typography>
@@ -62,10 +69,10 @@ const handleClick = ()=>{
       
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-            <AiFillHeart/>
+            <AiFillHeart/><p>{likes_count}</p>
         </IconButton>
         <IconButton aria-label="share">
-          <BiComment/>
+          <BiComment/><p>{comments_count}</p>
         </IconButton>
       </CardActions>
       

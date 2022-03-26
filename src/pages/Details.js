@@ -1,7 +1,6 @@
 import React, { useContext,useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AuthContext } from '../contexts/AuthContext'
-import { deleteInfo } from '../helpers/functions'
 import { Button } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -51,6 +50,26 @@ const Details = () => {
       getBlogDetail();
       
     }, [id]);
+
+    const deleteBlog = async ( ) => {
+      const token = JSON.parse(localStorage.getItem("token"));
+      await axios
+        .delete(`http://127.0.0.1:8000/blog/card-detail/${id}/`, {
+          headers: {
+            Authorization: `Token ${token}`,
+          
+          },
+          
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    
+          navigate("/");
+      };
     console.log(currentUser)
 
     return (
@@ -65,31 +84,54 @@ const Details = () => {
         backgroundSize:"cover"}}
         component="img"
         height="140"
-        image={blogDetail.url}
+        image={blogDetail.image}
         alt="Paella dish"
       />
       <CardContent style={{background:"#EFEEFE"}}>
           <h3 className='card-title'>{blogDetail.title}</h3>
           
-          <p>may 17,2021</p>
+          <p style={{ fontSize: "10px" }}>
+              {blogDetail.createdDate?.slice(0, 11)}
+            </p>
         <Typography variant="body2" className='card-content' color="text.secondary">
           {blogDetail.content}
         </Typography>
       </CardContent>
+      {/* <label name="comment">
+              <input name="comment" type="textField" placeholder=' add comment here'onChange ={(e)=> setComment(e.target.value)}/>
+              <button onClick={AddComment}>Add</button>
+            </label> */}
+      {blogDetail?.comments === undefined ? (
+            console.log("nab")
+          ) : blogDetail?.comments.lenght === 0 ? (
+            <p>no comments</p>
+          ) : (
+            blogDetail?.comments?.map((item, index) => (
+              <div key={index}>
+                <p style={{ fontSize: "15px" }}>{item.comment}</p>
+                <p style={{ fontSize: "10px" }}>
+                  {item.createdDate.slice(0, 11)}
+                </p>
+              </div>
+            ))
+          )}
+
       <div className='card-email'>
       <IconButton>
             <FaUserCircle/>
           </IconButton>
-      <p>{blogDetail?.user}sed</p>
-      <p>{currentUser?.id}la</p>
+          <p style={{ fontSize: "10px" }}>{blogDetail?.email}</p>
+      
       </div>
       
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
             <AiFillHeart/>
+            <p style={{ fontSize: "10px" }}>{blogDetail?.likes_count}</p>
         </IconButton>
         <IconButton aria-label="share">
           <BiComment/>
+          <p style={{ fontSize: "10px" }}>{blogDetail?.comments_count}</p>
         </IconButton>
       </CardActions>
       {currentUser.pk===blogDetail.user ?(
@@ -103,7 +145,7 @@ const Details = () => {
         <Button
                   variant="contained"
                   color="secondary"
-                  onClick={() =>{ deleteInfo(blogDetail.id)
+                  onClick={() =>{ deleteBlog(blogDetail.id)
                   navigate("/")}}
                 >
                   Delete

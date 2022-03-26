@@ -63,8 +63,8 @@ export default function Register() {
                     <TextField
                         required
                         id="outlined-required"
-                        label="Email"
-                        placeholder="Email"
+                        label="Username"
+                        placeholder="Username"
                         onChange ={(e)=> setUsername(e.target.value)}
                     />
                     <TextField

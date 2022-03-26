@@ -11,10 +11,11 @@ const NewBlog = () => {
   
     const {currentUser} =useContext(AuthContext)
     const [newPost, setNewPost] = useState({
-      "user": "ali",
+      "user": "",
       "title": "",
       "image": "",
-      "content": ""
+      "content": "",
+      "email":""
       });
       const navigate=useNavigate();
       const getNewBlog = async()=> {
@@ -23,10 +24,11 @@ const NewBlog = () => {
             method: "post",
             url: "http://127.0.0.1:8000/blog/post/",
             data: {
-              "user": "ali",
+              "user": currentUser.pk,
               "title": newPost.title,
               "image": newPost.image,
-              "content": newPost.content
+              "content": newPost.content,
+              "email":currentUser.email
             }
             
           }).then((response)=>{console.log(response.data);
